@@ -1,4 +1,4 @@
-package com.hexasoftwares.quizbuddy;
+package com.hexasoftwares.quizbuddy.activity;
 
 /**
  * Class created by Pritesh on 29-04-2015
@@ -6,6 +6,8 @@ package com.hexasoftwares.quizbuddy;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.hexasoftwares.quizbuddy.R;
 
 public class AboutActivity extends AppCompatActivity {
 

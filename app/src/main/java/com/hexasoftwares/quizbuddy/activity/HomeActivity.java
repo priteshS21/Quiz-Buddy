@@ -1,10 +1,11 @@
-package com.hexasoftwares.quizbuddy;
+package com.hexasoftwares.quizbuddy.activity;
 
 /**
  * Class created by Pritesh on 06-04-2015
  */
 
 import android.content.Intent;
+import androidx.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,40 +14,40 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.hexasoftwares.quizbuddy.R;
+import com.hexasoftwares.quizbuddy.databinding.ActivityHomeBinding;
+import com.hexasoftwares.quizbuddy.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    public static int qno;
-    public static int score;
-    public static int life;
-    public static int topic;
+    ActivityHomeBinding binding;
     int index=0;
-    public static String name;
-    EditText nameEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_home);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
         musicstart();
 
-        qno=1; score=0; life=3;
+        Constants.qno=1;
+        Constants.score=0;
+        Constants.life=3;
 
-        nameEt = findViewById(R.id.nameEtV);
-
-        // Spinner element
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        binding.startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentact();
+            }
+        });
 
         // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
+        binding.spinner.setOnItemSelectedListener(this);
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
@@ -63,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+        binding.spinner.setAdapter(dataAdapter);
 
     }
 
@@ -98,13 +99,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    public void intentact(View view)
+    public void intentact()
     {
-        name = nameEt.getText().toString();
+        Constants.name = binding.nameEtV.getText().toString();
 
-        if(name == null){
+        if(Constants.name == null){
             Toast.makeText(this, "Please enter your name", Toast.LENGTH_LONG).show();
-        }else if(name.isEmpty()){
+        }else if(Constants.name.isEmpty()){
             Toast.makeText(this, "Please enter your name", Toast.LENGTH_LONG).show();
         }else{ switch (index){
             case 0:{
@@ -112,25 +113,25 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             }
             case 1:{
+                Constants.topic = 1;
                 Intent i = new Intent(this, ComputerData.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(i); break;
+                startActivity(i);
+                finish();
+                break;
             }
             case 2:{
+                Constants.topic = 2;
                 Intent i = new Intent(this, ElectricalData.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(i); break;
+                startActivity(i);
+                finish();
+                break;
             }
             case 3:{
+                Constants.topic = 3;
                 Intent i = new Intent(this, MechanicalData.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(i); break;
+                startActivity(i);
+                finish();
+                break;
             }
         }
         }

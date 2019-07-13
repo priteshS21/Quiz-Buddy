@@ -1,10 +1,11 @@
-package com.hexasoftwares.quizbuddy;
+package com.hexasoftwares.quizbuddy.activity;
 
 /**
  * Class created by Pritesh on 07-04-2015
  */
 
 import android.content.Intent;
+import androidx.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +13,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hexasoftwares.quizbuddy.R;
+import com.hexasoftwares.quizbuddy.databinding.ActivityQuestionBinding;
+import com.hexasoftwares.quizbuddy.utils.Constants;
+
 public class ComputerData extends AppCompatActivity {
-    HomeActivity dc = new HomeActivity();
-    int qno=dc.qno;
-    int life=dc.life,score=dc.score,option=0;
+    ActivityQuestionBinding binding;
+    int option=0;
 
     String que[]={
         /*(1)*/"","How many layers are in the TCP/IP model?",
@@ -141,27 +144,18 @@ public class ComputerData extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question);
-        String st=String.valueOf(score), lv=String.valueOf(life);
-        final TextView textview=(TextView) findViewById(R.id.scoreView);
-        final TextView lifeview=(TextView) findViewById(R.id.lifeView);
-        final TextView queview=(TextView) findViewById(R.id.queView);
-        final TextView optaview=(TextView) findViewById(R.id.optaView);
-        final TextView optbview=(TextView) findViewById(R.id.optbView);
-        final TextView optcview=(TextView) findViewById(R.id.optcView);
-        final TextView optdview=(TextView) findViewById(R.id.optdView);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_question);
 
-        lifeview.setText("X"+lv);
-        textview.setText(" "+st);
-        queview.setText(que[qno]);
-        optaview.setText(opta[qno]);
-        optbview.setText(optb[qno]);
-        optcview.setText(optc[qno]);
-        optdview.setText(optd[qno]);
+        binding.lifeView.setText("X"+ Constants.life);
+        binding.scoreView.setText(" "+Constants.score);
+        binding.queView.setText(que[Constants.qno]);
+        binding.optaView.setText(opta[Constants.qno]);
+        binding.optbView.setText(optb[Constants.qno]);
+        binding.optcView.setText(optc[Constants.qno]);
+        binding.optdView.setText(optd[Constants.qno]);
 
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.underwater);
         mp.start();
-        dc.topic=1;
     }
 
     @Override
@@ -189,22 +183,22 @@ public class ComputerData extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.optaView:
                 if (checked)
-                    option=flagA[qno];
+                    option=flagA[Constants.qno];
                 sound();
                 break;
             case R.id.optbView:
                 if (checked)
-                    option=flagB[qno];
+                    option=flagB[Constants.qno];
                 sound();
                 break;
             case R.id.optcView:
                 if (checked)
-                    option=flagC[qno];
+                    option=flagC[Constants.qno];
                 sound();
                 break;
             case R.id.optdView:
                 if (checked)
-                     option=flagD[qno];
+                     option=flagD[Constants.qno];
                 sound();
                 break;
         }
@@ -221,15 +215,13 @@ public class ComputerData extends AppCompatActivity {
         }
         if (option == 1) {
             Intent i = new Intent(this, CorrectActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
+            finish();
         }
         if (option == 2) {
             Intent i = new Intent(this, WrongActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
+            finish();
         }
     }
 }

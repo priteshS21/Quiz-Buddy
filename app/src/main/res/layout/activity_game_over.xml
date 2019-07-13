@@ -1,86 +1,88 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.hexasoftwares.quizbuddy.GameOver"
-    android:background="@drawable/gameoverbackground">
-
-    <Button
-        android:id="@+id/button2"
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@android:color/holo_red_dark"
-        android:fontFamily="@font/bubblegum_sans"
-        android:onClick="intentact"
-        android:text="go to home"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="553dp" />
+        android:layout_height="match_parent"
+        android:background="@drawable/gameoverbackground">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp">
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/holo_red_dark"
+            android:fontFamily="@font/bubblegum_sans"
+            android:onClick="intentact"
+            android:text="go to home"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="553dp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:id="@+id/lifeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imageView7"
+                android:layout_toRightOf="@+id/imageView7"
+                android:fontFamily="@font/bubblegum_sans"
+                android:text="X0"
+                android:textColor="@android:color/white"
+                android:textSize="70dp" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/lifebig" />
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/lifeView"
+            android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView7"
-            android:layout_toRightOf="@+id/imageView7"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:fontFamily="@font/bubblegum_sans"
-            android:text="X0"
+            android:text="You are running out of lives!"
             android:textColor="@android:color/white"
-            android:textSize="70dp" />
+            android:textSize="25sp" />
 
-        <ImageView
-            android:id="@+id/imageView7"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/lifebig" />
+            android:layout_above="@+id/textView12"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/bubblegum_sans"
+            android:text="GAME OVER"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/finalScore"
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView12"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="41dp"
+            android:fontFamily="@font/bubblegum_sans"
+            android:gravity="center"
+            android:text="Your Score : 20"
+            android:textColor="@android:color/white"
+            android:textSize="25sp" />
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:fontFamily="@font/bubblegum_sans"
-        android:text="You are running out of lives!"
-        android:textColor="@android:color/white"
-        android:textSize="25sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView12"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="@font/bubblegum_sans"
-        android:text="GAME OVER"
-        android:textColor="@android:color/white"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/scoreView"
-        android:layout_width="288dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView12"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:fontFamily="@font/bubblegum_sans"
-        android:gravity="center"
-        android:text="Your Score : 20"
-        android:textColor="@android:color/white"
-        android:textSize="25sp" />
-
-</RelativeLayout>
+</layout>

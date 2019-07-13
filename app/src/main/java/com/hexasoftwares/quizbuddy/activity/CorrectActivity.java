@@ -1,4 +1,4 @@
-package com.hexasoftwares.quizbuddy;
+package com.hexasoftwares.quizbuddy.activity;
 
 /**
  * Class created by Pritesh on 07-04-2015
@@ -9,34 +9,31 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hexasoftwares.quizbuddy.R;
+import com.hexasoftwares.quizbuddy.databinding.ActivityCorrectBinding;
+import com.hexasoftwares.quizbuddy.utils.Constants;
 
 public class CorrectActivity extends AppCompatActivity {
+    ActivityCorrectBinding binding;
 
     private Boolean exit = false;
-    HomeActivity dc = new HomeActivity();
-    int score=dc.score+10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ComputerData qa = new ComputerData();
-        qa.option=0;
-        dc.score=score;
-        dc.qno++;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_correct);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_correct);
 
-        int life=dc.life;
-        String st=String.valueOf(score), lv=String.valueOf(life);
-        final TextView textview=(TextView) findViewById(R.id.scoreView);
-        final TextView lifeview=(TextView) findViewById(R.id.lifeView);
-        lifeview.setText("X"+lv);
-        textview.setText(" "+st);
+        Constants.qno = Constants.qno + 1;
+        Constants.score = Constants.score+10;
+
+        binding.lifeView.setText("X"+ Constants.life);
+        binding.scoreView.setText(" "+ Constants.score);
 
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.correct_sound);
         mp.start();
@@ -45,7 +42,6 @@ public class CorrectActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
@@ -64,28 +60,27 @@ public class CorrectActivity extends AppCompatActivity {
 
     public void intentact(View view)
     {
-        switch (dc.topic){
+        switch (Constants.topic){
             case 1:{
                 Intent in = new Intent(this, ComputerData.class);
-                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(in); break;
+                startActivity(in);
+                finish();
+                break;
             }
             case 2:{
                 Intent in = new Intent(this, ElectricalData.class);
-                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(in); break;
+                startActivity(in);
+                finish();
+                break;
             }
             case 3:{
                 Intent in = new Intent(this, MechanicalData.class);
-                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(in); break;
+                startActivity(in);
+                finish();
+                break;
             }
         }
     }
-
 
     @Override
     public void onBackPressed() {

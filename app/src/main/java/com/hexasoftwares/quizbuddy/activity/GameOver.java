@@ -1,4 +1,4 @@
-package com.hexasoftwares.quizbuddy;
+package com.hexasoftwares.quizbuddy.activity;
 
 /**
  * Class created by Pritesh on 22-02-2016
@@ -8,27 +8,29 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+
+import com.hexasoftwares.quizbuddy.R;
+import com.hexasoftwares.quizbuddy.databinding.ActivityGameOverBinding;
+import com.hexasoftwares.quizbuddy.utils.Constants;
 
 
 public class GameOver extends AppCompatActivity {
+    ActivityGameOverBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_over);
-        HomeActivity dc = new HomeActivity();
-        int score=dc.score;
-        String st=String.valueOf(score);
-        final TextView textview=(TextView) findViewById(R.id.scoreView);
-        textview.setText("Dear "+ dc.name+ ",\n Your final score is "+st);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_game_over);
+        binding.finalScore.setText("Dear "+ Constants.name  + ",\n Your final score is " + Constants.score);
 
-        dc.qno=1;
-        dc.score=0;
-        dc.life=3;
+        Constants.qno=1;
+        Constants.score=0;
+        Constants.life=3;
 
         MediaPlayer gov = MediaPlayer.create(getApplicationContext(), R.raw.gameover);
         gov.start();
@@ -57,9 +59,7 @@ public class GameOver extends AppCompatActivity {
     public void intentact(View view)
     {
         Intent i = new Intent(this, HomeActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(i);
+        finish();
     }
 }

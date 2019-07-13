@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity.HomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>
@@ -19,14 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ComputerData" />
-        <activity android:name=".CorrectActivity" />
-        <activity android:name=".WrongActivity" />
-        <activity android:name=".GameOver" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".ElectricalData" />
+        <activity android:name=".activity.ComputerData" />
+        <activity android:name=".activity.CorrectActivity" />
+        <activity android:name=".activity.WrongActivity" />
+        <activity android:name=".activity.GameOver" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.ElectricalData" />
         <activity
-            android:name=".MechanicalData"
+            android:name=".activity.MechanicalData"
             android:label="Mechanical"></activity>
 
         <meta-data

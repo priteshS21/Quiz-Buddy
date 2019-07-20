@@ -8,14 +8,13 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.hexasoftwares.quizbuddy.R;
 import com.hexasoftwares.quizbuddy.databinding.ActivityWrongBinding;
@@ -39,18 +38,17 @@ public class WrongActivity extends AppCompatActivity {
 
         switch (Constants.topic) {
             case 1: {
-                String ans[] = {"", "4 Layers", "Transmission capacity of a communication channels", "to connect LANs", "CREATE VIEW", "INSERT", "Graphite", "Operating System", "Hydrogen Sulphide", "Condensation", "Corona", "Silicon dioxide", "Powder type",
-                        "Cheetah", "Decreases slightly", "Cryogenics", "Sulphonates", "Natural rubber", "Insects", "Biro Brothers", "Telescope"};
+                String ans[] = {"4 Layers", "Transmission capacity of a communication channels", "to connect LANs", "CREATE VIEW", "INSERT"};
                 binding.ansView.setText(ans[Constants.qno]);
                 break;
             }
             case 2: {
-                String ans[] = {"", "All of the above", "Two", "Any of the above", "one armature and one field", "Rotary converter", "Aluminium", "1700—2000 V", "Mercury arc rectifier", "any D.C. machine", "none of the above"};
+                String ans[] = {"All of the above", "Two", "Any of the above", "one armature and one field", "Rotary converter", "Aluminium", "1700—2000 V", "Mercury arc rectifier", "any D.C. machine", "none of the above"};
                 binding.ansView.setText(ans[Constants.qno]);
                 break;
             }
             case 3: {
-                String ans[] = {"", "kinematics", "(a) and (b) above", "higher pair", "all of the above", "rolling pair", "ball bearing and roller bearing", "ellipse", "all of the above", "lower pair", "slider crank"};
+                String ans[] = {"kinematics", "(a) and (b) above", "higher pair", "all of the above", "rolling pair", "ball bearing and roller bearing", "ellipse", "all of the above", "lower pair", "slider crank"};
                 binding.ansView.setText(ans[Constants.qno]);
                 break;
             }
@@ -58,16 +56,12 @@ public class WrongActivity extends AppCompatActivity {
         }
 
         Constants.qno++;
-
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.result);
         mp.start();
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
@@ -85,7 +79,6 @@ public class WrongActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     public void intentact(View view) {
         if (Constants.life == 0) {
@@ -130,8 +123,6 @@ public class WrongActivity extends AppCompatActivity {
                     exit = false;
                 }
             }, 3 * 1000);
-
         }
-
     }
 }

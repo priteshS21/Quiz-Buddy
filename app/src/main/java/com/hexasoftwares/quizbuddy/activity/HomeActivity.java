@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         musicstart();
 
-        Constants.qno=1;
+        Constants.qno=0;
         Constants.score=0;
         Constants.life=3;
 
@@ -46,10 +46,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        // Spinner click listener
         binding.spinner.setOnItemSelectedListener(this);
 
-        // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
         categories.add("Please choose");
         categories.add("Computer Science");
@@ -57,13 +55,10 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         categories.add("Mechanical Engineering");
         categories.add("Chemical Engineering");
 
-        // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 
-        // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // attaching data adapter to spinner
         binding.spinner.setAdapter(dataAdapter);
 
     }

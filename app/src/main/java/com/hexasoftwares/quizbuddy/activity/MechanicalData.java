@@ -7,15 +7,13 @@ package com.hexasoftwares.quizbuddy.activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.hexasoftwares.quizbuddy.R;
 import com.hexasoftwares.quizbuddy.databinding.ActivityQuestionBinding;
@@ -49,25 +47,19 @@ public class MechanicalData extends AppCompatActivity {
             /*(8)*/"transmit motion",
             /*(9)*/"higher pair",
             /*(10)*/"cross head"};
-    int flagA[] = {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
-
 
     String optb[] = {
             /*(1)*/"", "Applied mechanics",
             /*(2)*/"piston and cylinder",
             /*(3)*/"rolling pair", "straight line motion mechanisms", "turning pair", "lead screw of a lathe", "circle", "guide other links", "lower pair", "slider crank"};
-    int flagB[] = {0, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1};
-
 
     String optc[] = {
             /*(1)*/"", "mechanisms", "cam and follower", "surface pair", "automobile steering gear", "rolling pair", "ball and socket joint", "ellipse", "act as a support", "rolling pair", "connecting rod"};
-    int flagC[] = {0, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2};
-
 
     String optd[] = {
             /*(1)*/"", "kinematics", "(a) and (b) above", "higher pair", "all of the above", "sliding pair", "ball bearing and roller bearing", "parabola", "all of the above", "sliding pair", "gudgeon pin"};
-    int flagD[] = {0, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2};
 
+    int[] correctAns = {0, 4, 4, 4, 4, 3, 4, 3, 4, 2, 2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +80,6 @@ public class MechanicalData extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
@@ -113,22 +104,22 @@ public class MechanicalData extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.optaView:
                 if (checked)
-                    option = flagA[Constants.qno];
+                    option = 1;
                 sound();
                 break;
             case R.id.optbView:
                 if (checked)
-                    option = flagB[Constants.qno];
+                    option = 2;
                 sound();
                 break;
             case R.id.optcView:
                 if (checked)
-                    option = flagC[Constants.qno];
+                    option = 3;
                 sound();
                 break;
             case R.id.optdView:
                 if (checked)
-                    option = flagD[Constants.qno];
+                    option = 4;
                 sound();
                 break;
         }
@@ -140,22 +131,14 @@ public class MechanicalData extends AppCompatActivity {
     }
 
     public void intentact(View view) {
-        switch (option) {
-            case 0: {
-                Toast.makeText(getApplicationContext(), "Please select any one Option!", Toast.LENGTH_SHORT).show();
-            }
-            case 1: {
-                Intent i = new Intent(this, CorrectActivity.class);
-                startActivity(i);
-                finish();
-                break;
-            }
-            case 2: {
-                Intent i = new Intent(this, WrongActivity.class);
-                startActivity(i);
-                finish();
-                break;
-            }
+        if (option == correctAns[Constants.qno]) {
+            Intent i = new Intent(this, CorrectActivity.class);
+            startActivity(i);
+            finish();
+        } else {
+            Intent i = new Intent(this, WrongActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 }

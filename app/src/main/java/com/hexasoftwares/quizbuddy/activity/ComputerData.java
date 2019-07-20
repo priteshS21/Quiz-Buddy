@@ -5,19 +5,15 @@ package com.hexasoftwares.quizbuddy.activity;
  */
 
 import android.content.Intent;
-
-import androidx.databinding.DataBindingUtil;
-
 import android.media.MediaPlayer;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.hexasoftwares.quizbuddy.R;
 import com.hexasoftwares.quizbuddy.databinding.ActivityQuestionBinding;
@@ -70,8 +66,6 @@ public class ComputerData extends AppCompatActivity {
             /*(13)*/"Behaviour of the human beings",
             /*(14)*/"Biro Brothers",
             /*(15)*/"Thermometer",};
-    int flagA[] = {0, 1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 2};
-
 
     String optb[] = {
             /*(1)*/"", "5 Layers",
@@ -94,8 +88,6 @@ public class ComputerData extends AppCompatActivity {
             /*(13)*/"Insects",
             /*(14)*/"Waterman brothers",
             /*(15)*/"Barometer",};
-    int flagB[] = {0, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2};
-
 
     String optc[] = {
             /*(1)*/"", "7 Layers",
@@ -118,8 +110,6 @@ public class ComputerData extends AppCompatActivity {
             /*(13)*/"Origin and history of technical and specific terms",
             /*(14)*/"Bicc brothers",
             /*(15)*/"Telescope",};
-    int flagC[] = {0, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1};
-
 
     String optd[] = {
             /*(1)*/"", "6 Layers",
@@ -142,8 +132,8 @@ public class ComputerData extends AppCompatActivity {
             /*(13)*/"None of the above",
             /*(14)*/"Wright brothers",
             /*(15)*/"Microscope",};
-    int flagD[] = {0, 2, 2, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2};
 
+    int[] correctAns = {0, 1, 1, 2, 3, 4, 1, 2, 4, 4, 3, 4, 2, 1, 2, 4, 2, 1, 2, 1, 3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +154,6 @@ public class ComputerData extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
@@ -189,22 +178,22 @@ public class ComputerData extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.optaView:
                 if (checked)
-                    option = flagA[Constants.qno];
+                    option = 1;
                 sound();
                 break;
             case R.id.optbView:
                 if (checked)
-                    option = flagB[Constants.qno];
+                    option = 2;
                 sound();
                 break;
             case R.id.optcView:
                 if (checked)
-                    option = flagC[Constants.qno];
+                    option = 3;
                 sound();
                 break;
             case R.id.optdView:
                 if (checked)
-                    option = flagD[Constants.qno];
+                    option = 4;
                 sound();
                 break;
         }
@@ -216,22 +205,14 @@ public class ComputerData extends AppCompatActivity {
     }
 
     public void intentact(View view) {
-        switch (option) {
-            case 0: {
-                Toast.makeText(getApplicationContext(), "Please select any one Option!", Toast.LENGTH_SHORT).show();
-            }
-            case 1: {
-                Intent i = new Intent(this, CorrectActivity.class);
-                startActivity(i);
-                finish();
-                break;
-            }
-            case 2: {
-                Intent i = new Intent(this, WrongActivity.class);
-                startActivity(i);
-                finish();
-                break;
-            }
+        if (option == correctAns[Constants.qno]) {
+            Intent i = new Intent(this, CorrectActivity.class);
+            startActivity(i);
+            finish();
+        } else {
+            Intent i = new Intent(this, WrongActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 }

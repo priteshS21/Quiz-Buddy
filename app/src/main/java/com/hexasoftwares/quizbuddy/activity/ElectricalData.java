@@ -6,16 +6,15 @@ package com.hexasoftwares.quizbuddy.activity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.hexasoftwares.quizbuddy.R;
 import com.hexasoftwares.quizbuddy.databinding.ActivityQuestionBinding;
@@ -49,8 +48,6 @@ public class ElectricalData extends AppCompatActivity {
             /*(8)*/"Motor-generator set",
             /*(9)*/"a transformer",
             /*(10)*/"low power factor"};
-    int flagA[] = {0, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2};
-
 
     String optb[] = {
             /*(1)*/"", "Arc welding",
@@ -63,8 +60,6 @@ public class ElectricalData extends AppCompatActivity {
             /*(8)*/"Motor converter",
             /*(9)*/"an induction motor",
             /*(10)*/"high power factor"};
-    int flagB[] = {0, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1};
-
 
     String optc[] = {
             /*(1)*/"", "Electrolytic and electro-chemical processes",
@@ -77,8 +72,6 @@ public class ElectricalData extends AppCompatActivity {
             /*(8)*/"Rotary converter",
             /*(9)*/"an alternator",
             /*(10)*/"zero power factor"};
-    int flagC[] = {0, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2};
-
 
     String optd[] = {
             /*(1)*/"", "All of the above",
@@ -91,12 +84,12 @@ public class ElectricalData extends AppCompatActivity {
             /*(8)*/"Mercury arc rectifier",
             /*(9)*/"any D.C. machine",
             /*(10)*/"none of the above"};
-    int flagD[] = {0, 1, 2, 1, 2, 2, 2, 1, 1, 1, 2};
+
+    int[] correctAns = {0, 4, 1, 4, 1, 3, 2, 4, 4, 4, 2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_question);
 
         binding.lifeView.setText("X" + Constants.life);
@@ -114,7 +107,6 @@ public class ElectricalData extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
@@ -139,22 +131,22 @@ public class ElectricalData extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.optaView:
                 if (checked)
-                    option = flagA[Constants.qno];
+                    option = 1;
                 sound();
                 break;
             case R.id.optbView:
                 if (checked)
-                    option = flagB[Constants.qno];
+                    option = 2;
                 sound();
                 break;
             case R.id.optcView:
                 if (checked)
-                    option = flagC[Constants.qno];
+                    option = 3;
                 sound();
                 break;
             case R.id.optdView:
                 if (checked)
-                    option = flagD[Constants.qno];
+                    option = 4;
                 sound();
                 break;
         }
@@ -166,22 +158,14 @@ public class ElectricalData extends AppCompatActivity {
     }
 
     public void intentact(View view) {
-        switch (option) {
-            case 0: {
-                Toast.makeText(getApplicationContext(), "Please select any one Option!", Toast.LENGTH_SHORT).show();
-            }
-            case 1: {
-                Intent i = new Intent(this, CorrectActivity.class);
-                startActivity(i);
-                finish();
-                break;
-            }
-            case 2: {
-                Intent i = new Intent(this, WrongActivity.class);
-                startActivity(i);
-                finish();
-                break;
-            }
+        if (option == correctAns[Constants.qno]) {
+            Intent i = new Intent(this, CorrectActivity.class);
+            startActivity(i);
+            finish();
+        } else {
+            Intent i = new Intent(this, WrongActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 }

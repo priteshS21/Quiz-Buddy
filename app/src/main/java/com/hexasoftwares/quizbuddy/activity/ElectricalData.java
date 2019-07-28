@@ -11,98 +11,47 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.hexasoftwares.quizbuddy.R;
 import com.hexasoftwares.quizbuddy.databinding.ActivityQuestionBinding;
+import com.hexasoftwares.quizbuddy.model.DataModel;
 import com.hexasoftwares.quizbuddy.utils.Constants;
+
+import java.util.ArrayList;
 
 public class ElectricalData extends AppCompatActivity {
     ActivityQuestionBinding binding;
+    ArrayList<DataModel> quizData;
 
     int option = 0;
-
-    String que[] = {
-            /*(1)*/"", "Which of the following are the applications of D.C. system ?",
-            /*(2)*/"In a single phase rotary converter the number of slip rings will be?",
-            /*(3)*/"A synchronous converter can be started",
-            /*(4)*/"A rotary converter is a single machine with?",
-            /*(5)*/"Which of the following is reversible in action ?",
-            /*(6)*/"Which of the following metals is generally manufactured by electrolysis process ?",
-            /*(7)*/"With a motor converter it is possible to obtain D.C. voltage only upto",
-            /*(8)*/"Normally, which of the following is used, when a large-scale conversion from AC. to D.C. power is required ?",
-            /*(9)*/"A rotary converter in general construction and design, is more or less like",
-            /*(10)*/"A rotary converter operates at a"};
-
-    String opta[] = {
-            /*(1)*/"", "Battery charging work",
-            /*(2)*/"Two",
-            /*(3)*/"By means of a small auxiliary motor",
-            /*(4)*/"One armature and one field",
-            /*(5)*/"Motor generator set",
-            /*(6)*/"Load",
-            /*(7)*/"200-100 V",
-            /*(8)*/"Motor-generator set",
-            /*(9)*/"a transformer",
-            /*(10)*/"low power factor"};
-
-    String optb[] = {
-            /*(1)*/"", "Arc welding",
-            /*(2)*/"Three",
-            /*(3)*/"From AC. side as induction motor",
-            /*(4)*/"Two armatures and one field",
-            /*(5)*/"Motor converter",
-            /*(6)*/"Aluminium",
-            /*(7)*/"600—800 V",
-            /*(8)*/"Motor converter",
-            /*(9)*/"an induction motor",
-            /*(10)*/"high power factor"};
-
-    String optc[] = {
-            /*(1)*/"", "Electrolytic and electro-chemical processes",
-            /*(2)*/"Four",
-            /*(3)*/"From D.C. side as D.C. motor",
-            /*(4)*/"One armature and two fields",
-            /*(5)*/"Rotary converter",
-            /*(6)*/"Copper",
-            /*(7)*/"1000—1200 V",
-            /*(8)*/"Rotary converter",
-            /*(9)*/"an alternator",
-            /*(10)*/"zero power factor"};
-
-    String optd[] = {
-            /*(1)*/"", "All of the above",
-            /*(2)*/"Five",
-            /*(3)*/"Any of the above",
-            /*(4)*/"none of the above",
-            /*(5)*/"none of the above",
-            /*(6)*/"Zinc",
-            /*(7)*/"1700—2000 V",
-            /*(8)*/"Mercury arc rectifier",
-            /*(9)*/"any D.C. machine",
-            /*(10)*/"none of the above"};
-
-    int[] correctAns = {0, 4, 1, 4, 1, 3, 2, 4, 4, 4, 2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_question);
 
+        quizData = new ArrayList<>();
+
+        quizData.add(new DataModel("Which of the following are the applications of D.C. system ?", "Battery charging work", "Arc welding", "Electrolytic and electro-chemical processes", "All of the above", 0));
+        quizData.add(new DataModel("In a single phase rotary converter the number of slip rings will be?", "Two", "Three", "Four", "Five", 4));
+        quizData.add(new DataModel("A synchronous converter can be started", "By means of a small auxiliary motor", "From AC. side as induction motor", "From D.C. side as D.C. motor", "Any of the above", 10));
+        quizData.add(new DataModel("A rotary converter is a single machine with?", "One armature and one field", "Two armatures and one field", "One armature and two fields", "none of the above", 4));
+        quizData.add(new DataModel("Which of the following is reversible in action ?", "Motor generator set", "Motor converter", "Rotary converter", "none of the above", 3));
+        quizData.add(new DataModel("Which of the following metals is generally manufactured by electrolysis process ?", "Load", "Aluminium", "Copper", "Zinc", 2));
+        quizData.add(new DataModel("With a motor converter it is possible to obtain D.C. voltage only upto", "200-100 V", "600—800 V", "1000—1200 V", "1700—2000 V", 4));
+        quizData.add(new DataModel("Normally, which of the following is used, when a large-scale conversion from AC. to D.C. power is required ?", "Motor-generator set", "Motor converter", "Rotary converter", "Mercury arc rectifier", 4));
+        quizData.add(new DataModel("A rotary converter in general construction and design, is more or less like", "a transformer", "an induction motor", "an alternator", "any D.C. machine", 4));
+        quizData.add(new DataModel("A rotary converter operates at a", "low power factor", "high power factor", "zero power factor", "none of the above", 2));
+
         binding.lifeView.setText("X" + Constants.life);
         binding.scoreView.setText(" " + Constants.score);
-        binding.queView.setText(que[Constants.qno]);
-        binding.optaView.setText(opta[Constants.qno]);
-        binding.optbView.setText(optb[Constants.qno]);
-        binding.optcView.setText(optc[Constants.qno]);
-        binding.optdView.setText(optd[Constants.qno]);
+
 
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.underwater);
         mp.start();
-
     }
 
     @Override
@@ -158,7 +107,7 @@ public class ElectricalData extends AppCompatActivity {
     }
 
     public void intentact(View view) {
-        if (option == correctAns[Constants.qno]) {
+        if (option == quizData.get(Constants.qno).getCorrectAnswer()) {
             Intent i = new Intent(this, CorrectActivity.class);
             startActivity(i);
             finish();

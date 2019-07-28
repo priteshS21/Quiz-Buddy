@@ -17,62 +17,41 @@ import androidx.databinding.DataBindingUtil;
 
 import com.hexasoftwares.quizbuddy.R;
 import com.hexasoftwares.quizbuddy.databinding.ActivityQuestionBinding;
+import com.hexasoftwares.quizbuddy.model.DataModel;
 import com.hexasoftwares.quizbuddy.utils.Constants;
+
+import java.util.ArrayList;
 
 public class MechanicalData extends AppCompatActivity {
     ActivityQuestionBinding binding;
+    ArrayList<DataModel> quizData;
 
     int option = 0;
-
-    String que[] = {
-            /*(1)*/ "", "Which of the following disciplines provides study of relative motion between the parts of a machine",
-            /*(2)*/ "Which of the following is a lower pair",
-            /*(3)*/ "If two moving elements have surface contact in motion, such pair is known as",
-            /*(4)*/ "The example of lower pair is",
-            /*(5)*/ "Pulley in a belt drive acts as",
-            /*(6)*/ "The example of rolling pair is",
-            /*(7)*/ "Any point on a link connecting double slider crank chain will trace a",
-            /*(8)*/ "The purpose of a link is to",
-            /*(9)*/ "A universal joint is an example of",
-            /*(10)*/ "Rectilinear motion of piston is converted into rotary by"};
-
-    String opta[] = {
-            /*(1)*/"", "Theory of machines",
-            /*(2)*/"ball and socket i",
-            /*(3)*/"sliding pair",
-            /*(4)*/"shaft revolving in a bearing",
-            /*(5)*/"cylindrical pair",
-            /*(6)*/"bolt and nut",
-            /*(7)*/"straight line",
-            /*(8)*/"transmit motion",
-            /*(9)*/"higher pair",
-            /*(10)*/"cross head"};
-
-    String optb[] = {
-            /*(1)*/"", "Applied mechanics",
-            /*(2)*/"piston and cylinder",
-            /*(3)*/"rolling pair", "straight line motion mechanisms", "turning pair", "lead screw of a lathe", "circle", "guide other links", "lower pair", "slider crank"};
-
-    String optc[] = {
-            /*(1)*/"", "mechanisms", "cam and follower", "surface pair", "automobile steering gear", "rolling pair", "ball and socket joint", "ellipse", "act as a support", "rolling pair", "connecting rod"};
-
-    String optd[] = {
-            /*(1)*/"", "kinematics", "(a) and (b) above", "higher pair", "all of the above", "sliding pair", "ball bearing and roller bearing", "parabola", "all of the above", "sliding pair", "gudgeon pin"};
-
-    int[] correctAns = {0, 4, 4, 4, 4, 3, 4, 3, 4, 2, 2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_question);
 
+        quizData = new ArrayList<>();
+        quizData.add(new DataModel("Which of the following disciplines provides study of relative motion between the parts of a machine","Theory of machines","Applied mechanics","mechanisms","kinematics", 4));
+        quizData.add(new DataModel("Which of the following is a lower pair","ball and socket i","piston and cylinder", "cam and follower", "(a) and (b) above",4));
+        quizData.add(new DataModel("If two moving elements have surface contact in motion, such pair is known as","sliding pair","rolling pair", "surface pair",  "higher pair",4));
+        quizData.add(new DataModel("The example of lower pair is","shaft revolving in a bearing","straight line motion mechanisms","automobile steering gear","all of the above",4));
+        quizData.add(new DataModel("Pulley in a belt drive acts as","cylindrical pair","turning pair", "rolling pair", "sliding pair",3));
+        quizData.add(new DataModel("The example of rolling pair is","bolt and nut","lead screw of a lathe", "ball and socket joint", "ball bearing and roller bearing", 4));
+        quizData.add(new DataModel("Any point on a link connecting double slider crank chain will trace a","straight line","circle","ellipse", "parabola", 3));
+        quizData.add(new DataModel("The purpose of a link is to","transmit motion","guide other links", "act as a support","all of the above", 4));
+        quizData.add(new DataModel("A universal joint is an example of","higher pair","lower pair",  "rolling pair", "sliding pair", 2));
+        quizData.add(new DataModel("Rectilinear motion of piston is converted into rotary by", "cross head","slider crank","connecting rod","gudgeon pin",2));
+
         binding.lifeView.setText("X" + Constants.life);
         binding.scoreView.setText(" " + Constants.score);
-        binding.queView.setText(que[Constants.qno]);
-        binding.optaView.setText(opta[Constants.qno]);
-        binding.optbView.setText(optb[Constants.qno]);
-        binding.optcView.setText(optc[Constants.qno]);
-        binding.optdView.setText(optd[Constants.qno]);
+        binding.queView.setText(quizData.get(Constants.qno).getQue());
+        binding.optaView.setText(quizData.get(Constants.qno).getOptA());
+        binding.optbView.setText(quizData.get(Constants.qno).getOptB());
+        binding.optcView.setText(quizData.get(Constants.qno).getOptC());
+        binding.optdView.setText(quizData.get(Constants.qno).getOptD());
 
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.underwater);
         mp.start();
@@ -131,7 +110,7 @@ public class MechanicalData extends AppCompatActivity {
     }
 
     public void intentact(View view) {
-        if (option == correctAns[Constants.qno]) {
+        if (option == quizData.get(Constants.qno).getCorrectAnswer()) {
             Intent i = new Intent(this, CorrectActivity.class);
             startActivity(i);
             finish();

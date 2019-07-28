@@ -5,10 +5,14 @@ package com.hexasoftwares.quizbuddy.activity;
  */
 
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.media.MediaPlayer;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +30,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ActivityHomeBinding binding;
-    int index=0;
+    int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +39,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         musicstart();
 
-        Constants.qno=0;
-        Constants.score=0;
-        Constants.life=3;
+        Constants.qno = 0;
+        Constants.score = 0;
+        Constants.life = 3;
 
         binding.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,9 +57,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         categories.add("Computer Science");
         categories.add("Electrical Engineering");
         categories.add("Mechanical Engineering");
-        categories.add("Chemical Engineering");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -63,12 +66,12 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    public void musicstart(){
+    public void musicstart() {
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.closer);
 
-        if (mp.isPlaying()){
+        if (mp.isPlaying()) {
             mp.release();
-        }   else    {
+        } else {
             mp.start();
         }
 
@@ -86,49 +89,49 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         int id = item.getItemId();
         if (id == R.id.about_app) {
             Intent i = new Intent(HomeActivity.this, AboutActivity.class);
-            startActivity(i);}
+            startActivity(i);
+        }
         if (id == R.id.restart_quiz) {
             Intent i = new Intent(HomeActivity.this, HomeActivity.class);
-            startActivity(i);}
+            startActivity(i);
+        }
         return super.onOptionsItemSelected(item);
     }
 
 
-    public void intentact()
-    {
+    public void intentact() {
         Constants.name = binding.nameEtV.getText().toString();
 
-        if(Constants.name == null){
+        if (Constants.name.isEmpty()) {
             Toast.makeText(this, "Please enter your name", Toast.LENGTH_LONG).show();
-        }else if(Constants.name.isEmpty()){
-            Toast.makeText(this, "Please enter your name", Toast.LENGTH_LONG).show();
-        }else{ switch (index){
-            case 0:{
-                Toast.makeText(this, "Please choose your topic to start", Toast.LENGTH_LONG).show();
-                break;
+        } else {
+            switch (index) {
+                case 0: {
+                    Toast.makeText(this, "Please choose your topic to start", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                case 1: {
+                    Constants.topic = 1;
+                    Intent i = new Intent(this, ComputerData.class);
+                    startActivity(i);
+                    finish();
+                    break;
+                }
+                case 2: {
+                    Constants.topic = 2;
+                    Intent i = new Intent(this, ElectricalData.class);
+                    startActivity(i);
+                    finish();
+                    break;
+                }
+                case 3: {
+                    Constants.topic = 3;
+                    Intent i = new Intent(this, MechanicalData.class);
+                    startActivity(i);
+                    finish();
+                    break;
+                }
             }
-            case 1:{
-                Constants.topic = 1;
-                Intent i = new Intent(this, ComputerData.class);
-                startActivity(i);
-                finish();
-                break;
-            }
-            case 2:{
-                Constants.topic = 2;
-                Intent i = new Intent(this, ElectricalData.class);
-                startActivity(i);
-                finish();
-                break;
-            }
-            case 3:{
-                Constants.topic = 3;
-                Intent i = new Intent(this, MechanicalData.class);
-                startActivity(i);
-                finish();
-                break;
-            }
-        }
         }
     }
 
@@ -136,8 +139,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         index = parent.getSelectedItemPosition();
+    }
 
-        }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
     }

@@ -48,8 +48,8 @@ public class ComputerData extends AppCompatActivity {
         binding.optcView.setText(quizData.get(Constants.qno).getOptC());
         binding.optdView.setText(quizData.get(Constants.qno).getOptD());
 
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.underwater);
-        mp.start();
+        MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.underwater);
+        player.start();
     }
 
     @Override

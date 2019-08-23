@@ -7,6 +7,7 @@ package com.hexasoftwares.quizbuddy.activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -16,6 +17,7 @@ import android.view.View;
 
 import com.hexasoftwares.quizbuddy.R;
 import com.hexasoftwares.quizbuddy.databinding.ActivityGameOverBinding;
+import com.hexasoftwares.quizbuddy.services.MusicService;
 import com.hexasoftwares.quizbuddy.utils.Constants;
 
 
@@ -26,14 +28,16 @@ public class GameOver extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_game_over);
-        binding.finalScore.setText("Dear "+ Constants.name  + ",\n Your final score is " + Constants.score);
+        binding.finalScore.setText("Dear " + Constants.name + ",\n Your final score is " + Constants.score);
 
-        Constants.qno=1;
-        Constants.score=0;
-        Constants.life=3;
+        Constants.qno = 1;
+        Constants.score = 0;
+        Constants.life = 3;
 
         MediaPlayer gov = MediaPlayer.create(getApplicationContext(), R.raw.gameover);
         gov.start();
+
+        stopService(new Intent(this, MusicService.class));
     }
 
 
@@ -49,15 +53,16 @@ public class GameOver extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.about_app) {
             Intent i = new Intent(GameOver.this, AboutActivity.class);
-            startActivity(i);}
+            startActivity(i);
+        }
         if (id == R.id.restart_quiz) {
             Intent i = new Intent(GameOver.this, HomeActivity.class);
-            startActivity(i);}
+            startActivity(i);
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    public void intentact(View view)
-    {
+    public void intentact(View view) {
         Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
         finish();

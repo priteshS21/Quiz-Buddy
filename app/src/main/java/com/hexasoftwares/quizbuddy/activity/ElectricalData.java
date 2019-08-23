@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -107,14 +108,18 @@ public class ElectricalData extends AppCompatActivity {
     }
 
     public void intentact(View view) {
-        if (option == quizData.get(Constants.qno).getCorrectAnswer()) {
-            Intent i = new Intent(this, CorrectActivity.class);
-            startActivity(i);
-            finish();
+        if (option != 0) {
+            if (option == quizData.get(Constants.qno).getCorrectAnswer()) {
+                Intent i = new Intent(this, CorrectActivity.class);
+                startActivity(i);
+                finish();
+            } else {
+                Intent i = new Intent(this, WrongActivity.class);
+                startActivity(i);
+                finish();
+            }
         } else {
-            Intent i = new Intent(this, WrongActivity.class);
-            startActivity(i);
-            finish();
+            Toast.makeText(this, "Please choose any option", Toast.LENGTH_SHORT).show();
         }
     }
 }

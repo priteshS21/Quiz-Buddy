@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -34,16 +35,16 @@ public class MechanicalData extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_question);
 
         quizData = new ArrayList<>();
-        quizData.add(new DataModel("Which of the following disciplines provides study of relative motion between the parts of a machine","Theory of machines","Applied mechanics","mechanisms","kinematics", 4));
-        quizData.add(new DataModel("Which of the following is a lower pair","ball and socket i","piston and cylinder", "cam and follower", "(a) and (b) above",4));
-        quizData.add(new DataModel("If two moving elements have surface contact in motion, such pair is known as","sliding pair","rolling pair", "surface pair",  "higher pair",4));
-        quizData.add(new DataModel("The example of lower pair is","shaft revolving in a bearing","straight line motion mechanisms","automobile steering gear","all of the above",4));
-        quizData.add(new DataModel("Pulley in a belt drive acts as","cylindrical pair","turning pair", "rolling pair", "sliding pair",3));
-        quizData.add(new DataModel("The example of rolling pair is","bolt and nut","lead screw of a lathe", "ball and socket joint", "ball bearing and roller bearing", 4));
-        quizData.add(new DataModel("Any point on a link connecting double slider crank chain will trace a","straight line","circle","ellipse", "parabola", 3));
-        quizData.add(new DataModel("The purpose of a link is to","transmit motion","guide other links", "act as a support","all of the above", 4));
-        quizData.add(new DataModel("A universal joint is an example of","higher pair","lower pair",  "rolling pair", "sliding pair", 2));
-        quizData.add(new DataModel("Rectilinear motion of piston is converted into rotary by", "cross head","slider crank","connecting rod","gudgeon pin",2));
+        quizData.add(new DataModel("Which of the following disciplines provides study of relative motion between the parts of a machine", "Theory of machines", "Applied mechanics", "mechanisms", "kinematics", 4));
+        quizData.add(new DataModel("Which of the following is a lower pair", "ball and socket i", "piston and cylinder", "cam and follower", "(a) and (b) above", 4));
+        quizData.add(new DataModel("If two moving elements have surface contact in motion, such pair is known as", "sliding pair", "rolling pair", "surface pair", "higher pair", 4));
+        quizData.add(new DataModel("The example of lower pair is", "shaft revolving in a bearing", "straight line motion mechanisms", "automobile steering gear", "all of the above", 4));
+        quizData.add(new DataModel("Pulley in a belt drive acts as", "cylindrical pair", "turning pair", "rolling pair", "sliding pair", 3));
+        quizData.add(new DataModel("The example of rolling pair is", "bolt and nut", "lead screw of a lathe", "ball and socket joint", "ball bearing and roller bearing", 4));
+        quizData.add(new DataModel("Any point on a link connecting double slider crank chain will trace a", "straight line", "circle", "ellipse", "parabola", 3));
+        quizData.add(new DataModel("The purpose of a link is to", "transmit motion", "guide other links", "act as a support", "all of the above", 4));
+        quizData.add(new DataModel("A universal joint is an example of", "higher pair", "lower pair", "rolling pair", "sliding pair", 2));
+        quizData.add(new DataModel("Rectilinear motion of piston is converted into rotary by", "cross head", "slider crank", "connecting rod", "gudgeon pin", 2));
 
         binding.lifeView.setText("X" + Constants.life);
         binding.scoreView.setText(" " + Constants.score);
@@ -110,14 +111,18 @@ public class MechanicalData extends AppCompatActivity {
     }
 
     public void intentact(View view) {
-        if (option == quizData.get(Constants.qno).getCorrectAnswer()) {
-            Intent i = new Intent(this, CorrectActivity.class);
-            startActivity(i);
-            finish();
+        if (option != 0) {
+            if (option == quizData.get(Constants.qno).getCorrectAnswer()) {
+                Intent i = new Intent(this, CorrectActivity.class);
+                startActivity(i);
+                finish();
+            } else {
+                Intent i = new Intent(this, WrongActivity.class);
+                startActivity(i);
+                finish();
+            }
         } else {
-            Intent i = new Intent(this, WrongActivity.class);
-            startActivity(i);
-            finish();
+            Toast.makeText(this, "Please choose any option", Toast.LENGTH_SHORT).show();
         }
     }
 }

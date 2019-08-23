@@ -8,7 +8,6 @@ import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 
 import com.hexasoftwares.quizbuddy.R;
 import com.hexasoftwares.quizbuddy.databinding.ActivityHomeBinding;
+import com.hexasoftwares.quizbuddy.services.MusicService;
 import com.hexasoftwares.quizbuddy.utils.Constants;
 
 import java.util.ArrayList;
@@ -37,8 +37,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        musicstart();
-
         Constants.qno = 0;
         Constants.score = 0;
         Constants.life = 3;
@@ -49,7 +47,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 intentact();
             }
         });
-
         binding.spinner.setOnItemSelectedListener(this);
 
         List<String> categories = new ArrayList<String>();
@@ -59,22 +56,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         categories.add("Mechanical Engineering");
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         binding.spinner.setAdapter(dataAdapter);
-
     }
 
-    public void musicstart() {
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.closer);
-
-        if (mp.isPlaying()) {
-            mp.release();
-        } else {
-            mp.start();
-        }
-
+    public void onStart() {
+        super.onStart();
+        startService(new Intent(this, MusicService.class));
     }
 
     @Override
